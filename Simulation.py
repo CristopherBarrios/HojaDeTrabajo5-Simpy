@@ -31,6 +31,7 @@ class OS(object):
         if(self.RAM.capacity - self.RAM.level) < mmry:
             self.RAM.put(mmry)
 
+
 class Process(object):
     def __int__(self, env, instructions, ex, RAMpp, simulation, name, inicio):
         self.env = env
@@ -41,9 +42,10 @@ class Process(object):
     def run(self, env, ex, RAMpp, simulation, name, inicio):
         yield env.timeout(2)
         instructionCont = 3
+        wCond = 1
 
         with simulation.cpu.request()  as requested:
-            while interval == 10:
+            while wCond == 1:
                 try:
                     instructionCont -= 1
                     yield self.env.timeout(ex)
@@ -51,10 +53,24 @@ class Process(object):
 
                 except simpy.Interrupt:
                     if self.instructions < 0:
-                        env.process(finish(env, RAMpp, simulation, name, inicio))
+                        env.process(finish(env, RAMppp, simulation, name, inicio))
 
+                    else:
+                        option = random.randint(1,2)
 
-def Proceso(processName, env, total):
+                        if option == 1:
+                            print(">>> " + name + " esta entrando en waiting en t = " + str(int(env.now)))
+                            yield env.timeout(option * 2)
+
+                        else:
+                            print(">>> " + name + " esta entrando en ready en t = " + str(int(env.now)))
+                            yield env.process(ready(env, self.instructions, ex, RAMpp, simulation, name, inicio))
+
+def proceso(processName, env, total):
+    mmry = random.randint(1, 10)
+    inst()
+
+def proceso(processName, env, total):
     mmry = random.randint(1,10)
     inst = random.randint(1, 10)
 
